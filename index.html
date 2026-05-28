@@ -3,53 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>المحاسبة الذكية</title>
+    <title>المحاسبة الذكية | مكتبة + اختبارات + حاسبات</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #f0f4f8; }
-        .container { max-width: 1200px; margin: 0 auto; background: white; min-height: 100vh; }
-        header { background: linear-gradient(135deg, #0f172a, #1e3a8a); color: white; padding: 1rem; text-align: center; }
-        .menu { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.5rem; padding: 1rem; }
-        .menu-btn { background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 0.8rem; padding: 0.6rem; text-align: center; cursor: pointer; font-size: 0.75rem; transition: 0.2s; }
-        .menu-btn:hover { background: #e0e7ff; transform: translateY(-2px); }
-        .screen { display: none; padding: 1rem; }
-        .screen.active { display: block; }
-        .back-btn { background: none; border: none; color: #3b82f6; font-weight: bold; margin-bottom: 1rem; cursor: pointer; }
-        .form-card { background: #f8fafc; padding: 1rem; border-radius: 1rem; margin-bottom: 1rem; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #f0f4f8; color: #1e293b; }
+        .app-container { max-width: 1200px; margin: 0 auto; background: white; min-height: 100vh; display: flex; flex-direction: column; box-shadow: 0 0 20px rgba(0,0,0,0.05); }
+        
+        /* header */
+        header { background: linear-gradient(135deg, #0f172a, #1e3a8a); color: white; padding: 1rem; text-align: center; position: sticky; top: 0; z-index: 100; }
+        header h1 { font-size: 1.4rem; letter-spacing: -0.5px; }
+        header p { font-size: 0.7rem; opacity: 0.9; margin-top: 4px; }
+        
+        /* القائمة الرئيسية */
+        .main-menu { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.5rem; padding: 1rem; background: white; border-bottom: 1px solid #e2e8f0; }
+        .menu-btn { background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 0.8rem; padding: 0.6rem 0.3rem; text-align: center; cursor: pointer; transition: all 0.2s; font-size: 0.75rem; font-weight: 500; }
+        .menu-btn:hover { background: #e0e7ff; transform: translateY(-2px); border-color: #3b82f6; }
+        
+        /* الشاشات */
+        .screen { display: none; padding: 1rem; flex: 1; }
+        .screen.active { display: block; animation: fadeIn 0.25s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* أزرار العودة */
+        .back-btn { background: none; border: none; color: #3b82f6; font-weight: bold; margin-bottom: 1rem; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; font-size: 0.85rem; }
+        
+        /* البطاقات والنماذج */
+        .form-card { background: #f8fafc; border-radius: 1rem; padding: 1rem; margin-bottom: 1rem; border: 1px solid #e2e8f0; }
         .form-group { margin-bottom: 0.8rem; }
-        .form-group label { display: block; font-size: 0.8rem; font-weight: bold; color: #1e3a8a; }
-        input, select { width: 100%; padding: 0.5rem; border: 1px solid #cbd5e1; border-radius: 0.5rem; margin-top: 0.2rem; }
-        .btn { width: 100%; padding: 0.5rem; border: none; border-radius: 0.5rem; background: #3b82f6; color: white; cursor: pointer; margin-top: 0.5rem; font-weight: bold; }
-        .btn-success { background: #059669; }
-        .result { background: #e0e7ff; padding: 0.6rem; border-radius: 0.6rem; margin-top: 0.6rem; font-size: 0.8rem; }
-        .search { width: 100%; padding: 0.6rem; margin-bottom: 1rem; border: 1px solid #cbd5e1; border-radius: 0.6rem; }
-        .cats { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
-        .cat { padding: 0.3rem 1rem; background: #e2e8f0; border: none; border-radius: 2rem; cursor: pointer; font-size: 0.7rem; }
-        .cat.active { background: #1e3a8a; color: white; }
-        .stats { background: #e0e7ff; padding: 0.3rem 1rem; border-radius: 2rem; display: inline-block; margin-bottom: 1rem; font-size: 0.75rem; }
+        .form-group label { display: block; font-size: 0.8rem; font-weight: 600; color: #1e3a8a; margin-bottom: 4px; }
+        input, select { width: 100%; padding: 0.6rem; border: 1px solid #cbd5e1; border-radius: 0.6rem; font-size: 0.85rem; background: white; }
+        input:focus { outline: none; border-color: #3b82f6; box-shadow: 0 0 0 2px rgba(59,130,246,0.2); }
+        
+        /* الأزرار */
+        .btn { padding: 0.6rem 1rem; border: none; border-radius: 0.6rem; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 0.85rem; width: 100%; }
+        .btn-primary { background: #3b82f6; color: white; }
+        .btn-primary:hover { background: #2563eb; transform: scale(0.98); }
+        .btn-success { background: #059669; color: white; }
+        .btn-success:hover { background: #047857; }
+        
+        /* النتائج */
+        .result-box { background: #e0e7ff; padding: 0.8rem; border-radius: 0.8rem; margin-top: 0.8rem; font-size: 0.85rem; line-height: 1.6; border-right: 3px solid #3b82f6; }
+        
+        /* المكتبة */
+        .search-input { width: 100%; padding: 0.7rem; margin-bottom: 1rem; border: 1px solid #cbd5e1; border-radius: 0.8rem; font-size: 0.9rem; }
+        .categories { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+        .cat-btn { padding: 0.3rem 1rem; background: #e2e8f0; border: none; border-radius: 2rem; cursor: pointer; font-size: 0.7rem; transition: 0.2s; }
+        .cat-btn.active { background: #1e3a8a; color: white; }
         .books-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
-        .book-card { background: white; border: 1px solid #e2e8f0; border-radius: 1rem; overflow: hidden; }
+        .book-card { background: white; border: 1px solid #e2e8f0; border-radius: 1rem; overflow: hidden; transition: 0.2s; }
+        .book-card:hover { transform: translateY(-3px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
         .book-cover { height: 80px; background: linear-gradient(135deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.8rem; }
         .book-info { padding: 0.6rem; }
-        .book-title { font-weight: bold; font-size: 0.75rem; margin-bottom: 0.3rem; }
-        .book-cat { display: inline-block; background: #e0e7ff; padding: 0.1rem 0.4rem; border-radius: 1rem; font-size: 0.6rem; color: #1e3a8a; }
-        .download { display: block; margin-top: 0.4rem; background: #059669; color: white; text-decoration: none; padding: 0.3rem; text-align: center; border-radius: 0.4rem; font-size: 0.7rem; }
-        .option { display: block; width: 100%; text-align: right; padding: 0.5rem; margin: 0.4rem 0; background: white; border: 1px solid #cbd5e1; border-radius: 0.5rem; cursor: pointer; }
+        .book-title { font-weight: bold; font-size: 0.75rem; margin-bottom: 0.3rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .book-cat { display: inline-block; background: #e0e7ff; padding: 0.1rem 0.5rem; border-radius: 1rem; font-size: 0.6rem; color: #1e3a8a; }
+        .download-link { display: block; margin-top: 0.4rem; background: #059669; color: white; text-decoration: none; padding: 0.3rem; text-align: center; border-radius: 0.5rem; font-size: 0.7rem; }
+        
+        /* الاختبارات */
+        .question-container { background: #f8fafc; border-radius: 1rem; padding: 1rem; margin-bottom: 1rem; }
+        .option-btn { display: block; width: 100%; text-align: right; padding: 0.6rem; margin: 0.5rem 0; background: white; border: 1px solid #cbd5e1; border-radius: 0.6rem; cursor: pointer; transition: 0.2s; }
+        .option-btn:hover { background: #e0e7ff; border-color: #3b82f6; }
         .correct-feedback { color: #059669; font-weight: bold; margin-top: 0.5rem; }
         .wrong-feedback { color: #dc2626; font-weight: bold; margin-top: 0.5rem; }
         .progress-bar { width: 100%; height: 6px; background: #e2e8f0; border-radius: 3px; overflow: hidden; margin-bottom: 1rem; }
         .progress-fill { height: 100%; background: #3b82f6; width: 0%; transition: width 0.3s; }
-        @media (max-width: 640px) { .menu { grid-template-columns: repeat(2, 1fr); } }
+        
+        /* الشريط السفلي */
+        .footer-links { background: #1e293b; color: white; text-align: center; padding: 0.8rem; margin-top: 1rem; font-size: 0.75rem; display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
+        .footer-links a { color: #94a3b8; text-decoration: none; transition: 0.2s; }
+        .footer-links a:hover { color: white; }
+        
+        /* موارد مفيدة */
+        .resources-section { background: #f8fafc; border-radius: 1rem; padding: 1rem; margin-top: 1rem; border: 1px solid #e2e8f0; }
+        .resources-title { font-size: 0.9rem; font-weight: bold; color: #1e3a8a; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem; }
+        .resources-links { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
+        .resource-link { background: white; border: 1px solid #cbd5e1; border-radius: 2rem; padding: 0.4rem 1rem; text-decoration: none; font-size: 0.75rem; display: inline-flex; align-items: center; gap: 0.4rem; transition: 0.2s; color: #1e293b; }
+        .resource-link:hover { background: #e0e7ff; border-color: #3b82f6; transform: translateY(-2px); }
+        
+        @media (max-width: 640px) { .main-menu { grid-template-columns: repeat(2, 1fr); } }
     </style>
 </head>
 <body>
-<div class="container">
+<div class="app-container">
     <header>
         <h1>📊 المحاسبة الذكية</h1>
         <p>مكتبة | اختبارات | إهلاك | تعادل | نسب مالية</p>
     </header>
 
-    <div class="menu">
+    <div class="main-menu">
+        <div class="menu-btn" onclick="showScreen('home')">🏠 الرئيسية</div>
         <div class="menu-btn" onclick="showScreen('library')">📚 المكتبة</div>
         <div class="menu-btn" onclick="showScreen('exams')">❓ اختبارات</div>
         <div class="menu-btn" onclick="showScreen('depreciation')">📉 الإهلاك</div>
@@ -57,239 +98,322 @@
         <div class="menu-btn" onclick="showScreen('ratios')">📊 نسب مالية</div>
     </div>
 
-    <div id="library" class="screen active">
-        <input type="text" id="search" class="search" placeholder="🔍 بحث في الكتب..." onkeyup="filterBooks()">
-        <div class="cats" id="cats"></div>
-        <div class="stats" id="stats"></div>
+    <!-- ===================== الشاشة الرئيسية ===================== -->
+    <div id="home" class="screen active">
+        <div style="text-align:center; padding:1rem;">
+            <h2>🏠 مرحباً بك في تطبيق المحاسبة الذكية</h2>
+            <p style="color:#64748b; margin-top:0.5rem;">اختر أحد الأقسام من القائمة أعلاه</p>
+        </div>
+        <div class="resources-section">
+            <div class="resources-title">📢 روابط مفيدة</div>
+            <div class="resources-links">
+                <a href="https://t.me/vibaccounting" target="_blank" class="resource-link">📱 قناة Vibaccounting</a>
+                <a href="https://t.me/accountingtody1" target="_blank" class="resource-link">📱 قناة Accountingtody</a>
+                <a href="https://acc.explapp.com/" target="_blank" class="resource-link">🌐 موقع المحاسب المحترف</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================== قسم المكتبة ===================== -->
+    <div id="library" class="screen">
+        <button class="back-btn" onclick="showScreen('home')">← العودة للرئيسية</button>
+        <input type="text" id="searchInput" class="search-input" placeholder="🔍 بحث في الكتب..." onkeyup="filterBooks()">
+        <div class="categories" id="categoriesContainer"></div>
         <div class="books-grid" id="booksGrid"></div>
     </div>
 
+    <!-- ===================== قسم الاختبارات ===================== -->
     <div id="exams" class="screen">
-        <button class="back-btn" onclick="showScreen('library')">← العودة</button>
+        <button class="back-btn" onclick="showScreen('home')">← العودة للرئيسية</button>
         <div id="examArea">
-            <div id="examStart" style="text-align:center; padding:1rem; background:#e0e7ff; border-radius:1rem;">
+            <div id="examWelcome" style="text-align:center; padding:1rem; background:#e0e7ff; border-radius:1rem; margin-bottom:1rem;">
                 <h3>📝 اختبار المحاسبة المتقدم</h3>
-                <p>10 أسئلة عشوائية من أصل 150 سؤالاً</p>
-                <button class="btn btn-success" onclick="startExam()" style="width:auto; padding:0.5rem 1.5rem;">🚀 ابدأ الاختبار</button>
+                <p style="margin:0.5rem 0;">10 أسئلة محاسبية متنوعة</p>
+                <button class="btn btn-success" onclick="startNewExam()" style="width:auto; padding:0.5rem 1.5rem;">🚀 ابدأ الاختبار</button>
             </div>
             <div id="examContent" style="display:none;">
                 <div class="progress-bar"><div class="progress-fill" id="examProgress"></div></div>
-                <div id="examQuestion" style="font-weight:bold; margin-bottom:0.8rem;"></div>
-                <div id="examOptions"></div>
-                <div id="examFeedback"></div>
-                <button id="examNext" class="btn" style="display:none; margin-top:1rem;" onclick="nextQuestion()">التالي →</button>
+                <div class="question-container">
+                    <div id="questionText" style="font-weight:bold; margin-bottom:0.8rem; font-size:1rem;"></div>
+                    <div id="optionsArea"></div>
+                    <div id="examFeedback" style="margin-top:0.8rem;"></div>
+                </div>
+                <button id="nextExamBtn" class="btn btn-primary" style="display:none;" onclick="nextExamQuestion()">التالي →</button>
             </div>
         </div>
-        <div id="examResult" class="result" style="display:none;"></div>
+        <div id="examResultArea" class="result-box" style="display:none;"></div>
     </div>
 
+    <!-- ===================== حاسبة الإهلاك ===================== -->
     <div id="depreciation" class="screen">
-        <button class="back-btn" onclick="showScreen('library')">← العودة</button>
+        <button class="back-btn" onclick="showScreen('home')">← العودة للرئيسية</button>
         <div class="form-card">
-            <div class="form-group"><label>💰 تكلفة الأصل</label><input type="number" id="cost" value="100000"></div>
-            <div class="form-group"><label>🔄 القيمة المتبقية</label><input type="number" id="salvage" value="10000"></div>
-            <div class="form-group"><label>⏳ العمر الإنتاجي (سنوات)</label><input type="number" id="life" value="5"></div>
+            <div class="form-group"><label>💰 تكلفة الأصل</label><input type="number" id="assetCost" value="100000"></div>
+            <div class="form-group"><label>🔄 القيمة المتبقية</label><input type="number" id="salvageValue" value="10000"></div>
+            <div class="form-group"><label>⏳ العمر الإنتاجي (سنوات)</label><input type="number" id="usefulLife" value="5"></div>
             <div class="form-group"><label>📅 تاريخ الشراء</label><input type="date" id="purchaseDate" value="2024-06-01"></div>
-            <button class="btn" onclick="calcDep()">احسب الإهلاك</button>
-            <div id="depResult" class="result"></div>
+            <button class="btn btn-primary" onclick="calculateDepreciation()">احسب الإهلاك السنوي</button>
+            <div id="depreciationResult" class="result-box" style="margin-top:1rem;"></div>
         </div>
     </div>
 
+    <!-- ===================== نقطة التعادل ===================== -->
     <div id="breakeven" class="screen">
-        <button class="back-btn" onclick="showScreen('library')">← العودة</button>
+        <button class="back-btn" onclick="showScreen('home')">← العودة للرئيسية</button>
         <div class="form-card">
-            <div class="form-group"><label>التكاليف الثابتة</label><input type="number" id="fixedCost" value="50000"></div>
-            <div class="form-group"><label>سعر البيع للوحدة</label><input type="number" id="price" value="200"></div>
-            <div class="form-group"><label>التكلفة المتغيرة للوحدة</label><input type="number" id="varCost" value="120"></div>
-            <button class="btn" onclick="calcBE()">احسب نقطة التعادل</button>
-            <div id="beResult" class="result"></div>
+            <div class="form-group"><label>التكاليف الثابتة</label><input type="number" id="fixedCosts" value="50000"></div>
+            <div class="form-group"><label>سعر البيع للوحدة</label><input type="number" id="unitPrice" value="200"></div>
+            <div class="form-group"><label>التكلفة المتغيرة للوحدة</label><input type="number" id="unitVarCost" value="120"></div>
+            <button class="btn btn-primary" onclick="calculateBreakEven()">احسب نقطة التعادل</button>
+            <div id="beResult" class="result-box" style="margin-top:1rem;"></div>
         </div>
     </div>
 
+    <!-- ===================== النسب المالية الشاملة ===================== -->
     <div id="ratios" class="screen">
-        <button class="back-btn" onclick="showScreen('library')">← العودة</button>
+        <button class="back-btn" onclick="showScreen('home')">← العودة للرئيسية</button>
         <div class="form-card">
-            <div class="form-group"><label>الإيرادات</label><input type="number" id="revenue" value="1000000"></div>
-            <div class="form-group"><label>صافي الربح</label><input type="number" id="netProfit" value="150000"></div>
-            <div class="form-group"><label>إجمالي الأصول</label><input type="number" id="assets" value="1200000"></div>
-            <div class="form-group"><label>حقوق الملكية</label><input type="number" id="equity" value="700000"></div>
-            <button class="btn" onclick="calcRatios()">تحليل النسب</button>
-            <div id="ratiosResult" class="result"></div>
+            <h3 style="margin-bottom:0.8rem; font-size:1rem;">📋 بيانات القوائم المالية</h3>
+            <div class="form-group"><label>الإيرادات</label><input type="number" id="revenueVal" value="1000000"></div>
+            <div class="form-group"><label>صافي الربح</label><input type="number" id="netProfitVal" value="150000"></div>
+            <div class="form-group"><label>إجمالي الأصول</label><input type="number" id="assetsVal" value="1200000"></div>
+            <div class="form-group"><label>حقوق الملكية</label><input type="number" id="equityVal" value="700000"></div>
+            <div class="form-group"><label>الأصول المتداولة</label><input type="number" id="currentAssetsVal" value="400000"></div>
+            <div class="form-group"><label>الخصوم المتداولة</label><input type="number" id="currentLiabVal" value="200000"></div>
+            <div class="form-group"><label>المخزون</label><input type="number" id="inventoryVal" value="80000"></div>
+            <div class="form-group"><label>إجمالي الخصوم</label><input type="number" id="totalLiabVal" value="500000"></div>
+            <button class="btn btn-primary" onclick="calculateAdvancedRatios()">تحليل النسب المالية</button>
+            <div id="ratiosResult" class="result-box" style="margin-top:1rem;"></div>
         </div>
+    </div>
+
+    <!-- ===================== الشريط السفلي الثابت ===================== -->
+    <div class="footer-links">
+        <a href="https://t.me/vibaccounting" target="_blank">📱 Vibaccounting</a>
+        <a href="https://t.me/accountingtody1" target="_blank">📱 Accountingtody</a>
+        <a href="https://acc.explapp.com/" target="_blank">🌐 المحاسب المحترف</a>
     </div>
 </div>
 
+<script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
 <script>
-    // روابط الملفات (ضع الروابط الصحيحة بعد التفعيل)
-    const BOOKS_URL = "books.json";
-    const QUESTIONS_URL = "questions.json";
-    
+    // ===================== المكتبة =====================
     let allBooks = [];
-    let currentCat = 'الكل';
-    let allQuestions = [];
-    let currentExamQuestions = [];
-    let examIdx = 0, examScore = 0;
+    let currentCategory = 'الكل';
     
-    // تحميل الكتب
     async function loadBooks() {
         try {
-            const res = await fetch(BOOKS_URL);
-            const data = await res.json();
+            const response = await fetch('books.json');
+            const data = await response.json();
             allBooks = data.map(book => ({
                 name: book.name,
-                display: book.name.replace(/\.pdf$/i, '').substring(0, 55),
+                displayName: book.name.replace(/\.pdf$/i, '').replace(/\.[^/.]+$/, '').substring(0, 55),
                 link: book.link,
-                category: getCategory(book.name)
+                category: getBookCategory(book.name)
             }));
+            loadCategories();
             renderBooks();
-            loadCats();
         } catch(e) {
-            document.getElementById('booksGrid').innerHTML = '<div class="result">⚠️ خطأ في تحميل الكتب</div>';
+            document.getElementById('booksGrid').innerHTML = '<div class="result-box">⚠️ خطأ في تحميل المكتبة</div>';
         }
     }
     
-    function getCategory(name) {
-        const n = name.toLowerCase();
-        if (n.includes('cma') || n.includes('gleim')) return '🏅 CMA';
-        if (n.includes('تكاليف') || n.includes('cost')) return '📊 تكاليف';
-        if (n.includes('مالية') || n.includes('financial')) return '💰 مالية';
-        if (n.includes('ادارية') || n.includes('managerial')) return '📈 إدارية';
-        if (n.includes('بنوك')) return '🏦 بنوك';
-        if (n.includes('فندقية') || n.includes('food')) return '🏨 فنادق';
-        if (n.includes('زكاة') || n.includes('ضريبة')) return '⚖️ زكاة';
-        if (n.includes('زراعية')) return '🌾 زراعية';
-        return '📚 عامة';
+    function getBookCategory(filename) {
+        const n = filename.toLowerCase();
+        if (n.includes('cma') || n.includes('gleim')) return '🏅 CMA وشهادات';
+        if (n.includes('تكاليف') || n.includes('cost')) return '📊 محاسبة تكاليف';
+        if (n.includes('مالية') || n.includes('financial')) return '💰 محاسبة مالية';
+        if (n.includes('ادارية') || n.includes('managerial')) return '📈 محاسبة إدارية';
+        if (n.includes('بنوك')) return '🏦 محاسبة بنوك';
+        if (n.includes('زكاة') || n.includes('ضريبة')) return '⚖️ زكاة وضرائب';
+        if (n.includes('زراعية')) return '🌾 محاسبة زراعية';
+        if (n.includes('فندقية') || n.includes('food')) return '🏨 فنادق وسياحة';
+        if (n.includes('تدقيق')) return '🔍 تدقيق محاسبي';
+        if (n.includes('نظرية')) return '📖 نظرية محاسبية';
+        return '📚 كتب عامة';
     }
     
-    function loadCats() {
-        if (!allBooks.length) return;
-        const cats = ['الكل', ...new Set(allBooks.map(b => b.category))];
-        document.getElementById('cats').innerHTML = cats.map(c => `<button class="cat ${currentCat === c ? 'active' : ''}" onclick="setCat('${c}')">${c}</button>`).join('');
+    function loadCategories() {
+        const categories = ['الكل', ...new Set(allBooks.map(b => b.category))];
+        const container = document.getElementById('categoriesContainer');
+        container.innerHTML = categories.map(cat => `<button class="cat-btn ${currentCategory === cat ? 'active' : ''}" onclick="setCategory('${cat.replace(/'/g, "\\'")}')">${cat}</button>`).join('');
     }
     
-    function setCat(c) { currentCat = c; loadCats(); renderBooks(); }
+    function setCategory(cat) { currentCategory = cat; loadCategories(); renderBooks(); }
     function filterBooks() { renderBooks(); }
     
     function renderBooks() {
+        const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+        let filtered = allBooks;
+        if (currentCategory !== 'الكل') filtered = filtered.filter(book => book.category === currentCategory);
+        if (searchTerm) filtered = filtered.filter(book => book.displayName.toLowerCase().includes(searchTerm) || book.category.toLowerCase().includes(searchTerm));
         const grid = document.getElementById('booksGrid');
-        if (!allBooks.length) { grid.innerHTML = '<div class="result">📭 جاري تحميل الكتب...</div>'; return; }
-        const search = document.getElementById('search').value.toLowerCase();
-        let filtered = allBooks.filter(b => (currentCat === 'الكل' || b.category === currentCat) && b.display.toLowerCase().includes(search));
-        document.getElementById('stats').innerHTML = `📊 ${filtered.length} كتاب`;
-        let html = '';
-        for (let b of filtered) {
-            html += `<div class="book-card"><div class="book-cover">📖</div><div class="book-info"><div class="book-title">${escapeHtml(b.display)}</div><div class="book-cat">${b.category}</div><a href="${b.link}" target="_blank" class="download">📥 تحميل</a></div></div>`;
-        }
-        grid.innerHTML = html || '<div class="result">📭 لا توجد كتب</div>';
+        if (!filtered.length) { grid.innerHTML = '<div style="text-align:center; padding:2rem; color:#64748b;">📭 لا توجد كتب مطابقة</div>'; return; }
+        grid.innerHTML = filtered.map(book => `
+            <div class="book-card">
+                <div class="book-cover">📖</div>
+                <div class="book-info">
+                    <div class="book-title">${escapeHtml(book.displayName)}</div>
+                    <div class="book-cat">${book.category}</div>
+                    <a href="${book.link}" target="_blank" class="download-link">📥 تحميل</a>
+                </div>
+            </div>
+        `).join('');
     }
     
-    // تحميل الأسئلة
+    // ===================== الاختبارات (بدون زر إعادة أثناء الاختبار) =====================
+    let fullQuestionsBank = [];
+    let currentExamQuestions = [];
+    let currentExamIndex = 0;
+    let examScore = 0;
+    let examAnswers = [];
+    
     async function loadQuestions() {
         try {
-            const res = await fetch(QUESTIONS_URL);
-            allQuestions = await res.json();
-        } catch(e) {
-            console.log("خطأ في تحميل الأسئلة");
-        }
+            const response = await fetch('questions.json');
+            fullQuestionsBank = await response.json();
+        } catch(e) { console.log('خطأ في تحميل الأسئلة'); }
     }
     
-    function startExam() {
-        if (!allQuestions.length) { alert("جاري تحميل الأسئلة..."); return; }
-        const shuffled = [...allQuestions];
+    function startNewExam() {
+        if (!fullQuestionsBank.length) { alert('جاري تحميل الأسئلة...'); return; }
+        const shuffled = [...fullQuestionsBank];
         for (let i = shuffled.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
         }
         currentExamQuestions = shuffled.slice(0, 10);
-        examIdx = 0; examScore = 0;
-        document.getElementById('examStart').style.display = 'none';
+        examAnswers = new Array(10).fill(null);
+        currentExamIndex = 0;
+        examScore = 0;
+        document.getElementById('examWelcome').style.display = 'none';
         document.getElementById('examContent').style.display = 'block';
-        document.getElementById('examResult').style.display = 'none';
-        renderExam();
+        document.getElementById('examResultArea').style.display = 'none';
+        renderExamQuestion();
     }
     
-    function renderExam() {
-        const q = currentExamQuestions[examIdx];
-        document.getElementById('examQuestion').innerHTML = q.text;
-        let html = '';
-        q.options.forEach((opt, i) => {
-            html += `<button class="option" onclick="selectAnswer(${i})">${opt}</button>`;
+    function renderExamQuestion() {
+        const q = currentExamQuestions[currentExamIndex];
+        document.getElementById('questionText').innerHTML = q.text;
+        let optsHtml = '';
+        q.options.forEach((opt, idx) => {
+            optsHtml += `<button class="option-btn" onclick="selectExamAnswer(${idx})">${opt}</button>`;
         });
-        document.getElementById('examOptions').innerHTML = html;
+        document.getElementById('optionsArea').innerHTML = optsHtml;
         document.getElementById('examFeedback').innerHTML = '';
-        document.getElementById('examNext').style.display = 'none';
-        const progress = ((examIdx + 1) / 10) * 100;
+        document.getElementById('nextExamBtn').style.display = 'none';
+        const progress = ((currentExamIndex + 1) / 10) * 100;
         document.getElementById('examProgress').style.width = progress + '%';
     }
     
-    function selectAnswer(selected) {
-        const q = currentExamQuestions[examIdx];
-        if (selected === q.correct) {
+    function selectExamAnswer(selectedIdx) {
+        if (examAnswers[currentExamIndex] !== null) return;
+        examAnswers[currentExamIndex] = selectedIdx;
+        const q = currentExamQuestions[currentExamIndex];
+        if (selectedIdx === q.correct) {
             examScore++;
-            document.getElementById('examFeedback').innerHTML = '<div class="correct-feedback">✅ إجابة صحيحة!</div>';
+            document.getElementById('examFeedback').innerHTML = '<div class="correct-feedback">✅ إجابة صحيحة! أحسنت.</div>';
         } else {
             document.getElementById('examFeedback').innerHTML = `<div class="wrong-feedback">❌ خطأ! الإجابة الصحيحة: ${q.options[q.correct]}</div>`;
         }
-        document.getElementById('examNext').style.display = 'block';
-        document.querySelectorAll('.option').forEach(btn => btn.style.opacity = '0.6');
+        document.getElementById('nextExamBtn').style.display = 'block';
+        document.querySelectorAll('.option-btn').forEach(btn => btn.style.opacity = '0.6');
     }
     
-    function nextQuestion() {
-        if (examIdx < 9) { examIdx++; renderExam(); }
-        else { finishExam(); }
+    function nextExamQuestion() {
+        if (currentExamIndex < 9) {
+            currentExamIndex++;
+            renderExamQuestion();
+        } else {
+            finishExam();
+        }
     }
     
     function finishExam() {
         document.getElementById('examContent').style.display = 'none';
-        let msg = examScore >= 8 ? "🎉 ممتاز! مستوى احترافي" : (examScore >= 6 ? "👍 جيد جداً" : "💪 حاول مرة أخرى");
-        document.getElementById('examResult').innerHTML = `<div style="font-size:1.5rem; font-weight:bold;">${examScore}/10</div><p>${msg}</p><button class="btn btn-success" onclick="location.reload()">🔄 اختبار جديد</button>`;
-        document.getElementById('examResult').style.display = 'block';
+        let message = examScore >= 8 ? "🎉 ممتاز! مستوى احترافي" : (examScore >= 6 ? "👍 جيد جداً، راجع الأخطاء" : "💪 تحتاج للمزيد من التدريب");
+        document.getElementById('examResultArea').innerHTML = `
+            <div style="font-size:1.8rem; font-weight:bold; color:#1e3a8a; margin-bottom:0.5rem;">${examScore} / 10</div>
+            <p>${message}</p>
+            <button class="btn btn-success" onclick="resetExam()" style="margin-top:1rem;">🔄 اختبار جديد</button>
+        `;
+        document.getElementById('examResultArea').style.display = 'block';
     }
     
-    // الحاسبات
-    function calcDep() {
-        let c = parseFloat(document.getElementById('cost').value);
-        let s = parseFloat(document.getElementById('salvage').value);
-        let l = parseFloat(document.getElementById('life').value);
-        if (isNaN(c) || c <= s) { document.getElementById('depResult').innerHTML = '⚠️ بيانات غير صحيحة'; return; }
-        let annual = (c - s) / l;
-        document.getElementById('depResult').innerHTML = `📊 الإهلاك السنوي: ${annual.toFixed(2)} ريال`;
+    function resetExam() {
+        document.getElementById('examWelcome').style.display = 'block';
+        document.getElementById('examContent').style.display = 'none';
+        document.getElementById('examResultArea').style.display = 'none';
+        currentExamQuestions = [];
+        examAnswers = [];
     }
     
-    function calcBE() {
-        let f = parseFloat(document.getElementById('fixedCost').value);
-        let p = parseFloat(document.getElementById('price').value);
-        let v = parseFloat(document.getElementById('varCost').value);
-        if (p <= v) { document.getElementById('beResult').innerHTML = '⚠️ سعر البيع > التكلفة المتغيرة'; return; }
-        let units = f / (p - v);
-        document.getElementById('beResult').innerHTML = `🎯 نقطة التعادل: ${Math.ceil(units)} وحدة (${(units * p).toFixed(0)} ريال)`;
+    // ===================== الحاسبات =====================
+    function calculateDepreciation() {
+        const cost = parseFloat(document.getElementById('assetCost').value);
+        const salvage = parseFloat(document.getElementById('salvageValue').value);
+        const life = parseFloat(document.getElementById('usefulLife').value);
+        if (isNaN(cost) || cost <= salvage) { document.getElementById('depreciationResult').innerHTML = '⚠️ بيانات غير صحيحة'; return; }
+        const annual = (cost - salvage) / life;
+        document.getElementById('depreciationResult').innerHTML = `📊 الإهلاك السنوي (القسط الثابت): <strong>${annual.toFixed(2)} ريال</strong>`;
     }
     
-    function calcRatios() {
-        let r = parseFloat(document.getElementById('revenue').value);
-        let p = parseFloat(document.getElementById('netProfit').value);
-        let a = parseFloat(document.getElementById('assets').value);
-        let e = parseFloat(document.getElementById('equity').value);
-        document.getElementById('ratiosResult').innerHTML = `هامش الربح: ${(p/r*100).toFixed(2)}%<br>ROA: ${(p/a*100).toFixed(2)}%<br>ROE: ${(p/e*100).toFixed(2)}%`;
+    function calculateBreakEven() {
+        const fixed = parseFloat(document.getElementById('fixedCosts').value);
+        const price = parseFloat(document.getElementById('unitPrice').value);
+        const varCost = parseFloat(document.getElementById('unitVarCost').value);
+        if (price <= varCost) { document.getElementById('beResult').innerHTML = '⚠️ سعر البيع > التكلفة المتغيرة'; return; }
+        const units = fixed / (price - varCost);
+        document.getElementById('beResult').innerHTML = `🎯 نقطة التعادل: <strong>${Math.ceil(units)} وحدة</strong><br>💰 بقيمة مبيعات: <strong>${(units * price).toFixed(0)} ريال</strong>`;
     }
     
-    function showScreen(id) {
-        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
-        if (id === 'library') renderBooks();
+    function calculateAdvancedRatios() {
+        const revenue = parseFloat(document.getElementById('revenueVal').value);
+        const netProfit = parseFloat(document.getElementById('netProfitVal').value);
+        const assets = parseFloat(document.getElementById('assetsVal').value);
+        const equity = parseFloat(document.getElementById('equityVal').value);
+        const currentAssets = parseFloat(document.getElementById('currentAssetsVal').value);
+        const currentLiab = parseFloat(document.getElementById('currentLiabVal').value);
+        const inventory = parseFloat(document.getElementById('inventoryVal').value);
+        const totalLiab = parseFloat(document.getElementById('totalLiabVal').value);
+        if (isNaN(revenue) || isNaN(netProfit) || isNaN(assets) || isNaN(equity)) { document.getElementById('ratiosResult').innerHTML = '⚠️ يرجى إدخال البيانات الأساسية'; return; }
+        const profitMargin = (netProfit / revenue) * 100;
+        const roa = (netProfit / assets) * 100;
+        const roe = (netProfit / equity) * 100;
+        const currentRatio = currentAssets / currentLiab;
+        const quickRatio = (currentAssets - inventory) / currentLiab;
+        const debtRatio = (totalLiab / assets) * 100;
+        const equityMultiplier = assets / equity;
+        document.getElementById('ratiosResult').innerHTML = `
+            <strong>📊 النسب المالية الشاملة:</strong><br>
+            🟢 هامش صافي الربح: ${profitMargin.toFixed(2)}%<br>
+            🟢 العائد على الأصول (ROA): ${roa.toFixed(2)}%<br>
+            🟢 العائد على حقوق الملكية (ROE): ${roe.toFixed(2)}%<br>
+            🟢 النسبة المتداولة: ${currentRatio.toFixed(2)}<br>
+            🟢 النسبة السريعة: ${quickRatio.toFixed(2)}<br>
+            🟢 نسبة المديونية: ${debtRatio.toFixed(2)}%<br>
+            🟢 مضاعف حقوق الملكية: ${equityMultiplier.toFixed(2)}
+        `;
     }
     
     function escapeHtml(str) { return str.replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m])); }
     
+    function showScreen(screenId) {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById(screenId).classList.add('active');
+        if (screenId === 'library') { if (allBooks.length) renderBooks(); else loadBooks(); }
+    }
+    
     window.showScreen = showScreen;
-    window.setCat = setCat;
+    window.setCategory = setCategory;
     window.filterBooks = filterBooks;
-    window.startExam = startExam;
-    window.selectAnswer = selectAnswer;
-    window.nextQuestion = nextQuestion;
-    window.calcDep = calcDep;
-    window.calcBE = calcBE;
-    window.calcRatios = calcRatios;
+    window.startNewExam = startNewExam;
+    window.selectExamAnswer = selectExamAnswer;
+    window.nextExamQuestion = nextExamQuestion;
+    window.resetExam = resetExam;
+    window.calculateDepreciation = calculateDepreciation;
+    window.calculateBreakEven = calculateBreakEven;
+    window.calculateAdvancedRatios = calculateAdvancedRatios;
     
     loadBooks();
     loadQuestions();
